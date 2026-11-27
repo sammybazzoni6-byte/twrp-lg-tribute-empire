@@ -1,1 +1,36 @@
+name: Build TWRP (LG mcv1s)
 
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "TWRP minimal-manifest branch (twrp-8.1 or twrp-9.0)"
+        default: "twrp-8.1"
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Free up disk space on the runner
+        run: |
+          sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/lib/android /opt/hostedtoolcache /usr/local/share/boost
+          sudo apt-get clean
+          df -h /
+
+      - name: Sync source and build inside Ubuntu 18.04
+        run: |
+          mkdir -p "$HOME/twrp"
+          docker run --rm -e BRANCH="${{ github.event.inputs.branch }}" \
+            -v "$HOME/twrp:/twrp" \
+            -v "$GITHUB_WORKSPACE/twrp_device_lge_mcv1s:/tree:ro" \
+            -v "$GITHUB_WORKSPACE/ci/build.sh:/build.sh:ro" \
+            ubuntu:18.04 bash /build.sh
+
+      - name: Upload recovery image
+        uses: actions/upload-artifact@v4
+        with:
+          name: twrp-mcv1s-recovery
+          path: ~/twrp/out/target/product/mcv1s/recovery.img
