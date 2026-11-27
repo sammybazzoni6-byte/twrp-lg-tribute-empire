@@ -5,7 +5,7 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get update
 apt-get install -y git curl python python3 openjdk-8-jdk-headless bc bison build-essential flex \
   gcc-multilib g++-multilib gperf libncurses5-dev libssl-dev lib32z1-dev libxml2-utils zip unzip \
-  zlib1g-dev rsync lzop lz4 xz-utils ca-certificates cpio libtinfo5
+  zlib1g-dev rsync lzop liblz4-tool xz-utils ca-certificates cpio libtinfo5
 curl -sSL https://storage.googleapis.com/git-repo-downloads/repo -o /usr/local/bin/repo
 chmod +x /usr/local/bin/repo
 git config --global user.name ci
