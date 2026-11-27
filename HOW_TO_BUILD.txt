@@ -1,0 +1,6 @@
+1. Create a free GitHub account (github.com) and a NEW PUBLIC repository (public repos get free build minutes).
+2. Upload everything in this folder to it, keeping the structure, including the hidden .github folder
+   (easiest: install GitHub Desktop, or use "Add file > Upload files" and drag the folders in).
+3. Open the repo's Actions tab, choose "Build TWRP (LG mcv1s)", click "Run workflow".
+4. Wait roughly 1-3 hours. When it turns green, open the run and download the artifact "twrp-mcv1s-recovery".
+   If it fails, open the failed step, copy the last ~50 lines of the log, and send them to Claude.
